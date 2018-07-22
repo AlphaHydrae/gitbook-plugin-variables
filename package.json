@@ -1,0 +1,25 @@
+{
+  "name": "gitbook-plugin-data",
+  "version": "1.0.0",
+  "description": "Add variables to use in GitBook templates",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlphaHydrae/gitbook-plugin-data.git"
+  },
+  "keywords": [
+    "gitbook",
+    "data",
+    "template",
+    "variable"
+  ],
+  "author": "Simon Oulevay <npm@alphahydrae.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AlphaHydrae/gitbook-plugin-data/issues"
+  },
+  "homepage": "https://github.com/AlphaHydrae/gitbook-plugin-data#readme"
+}
