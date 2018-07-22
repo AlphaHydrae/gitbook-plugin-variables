@@ -2,6 +2,9 @@
 
 > Load variables from files and use them in your [GitBook](https://www.gitbook.com) templates.
 
+[![npm version](https://badge.fury.io/js/gitbook-plugin-variables.svg)](https://badge.fury.io/js/gitbook-plugin-variables)
+[![Build Status](https://travis-ci.org/AlphaHydrae/gitbook-plugin-variables.svg?branch=master)](https://travis-ci.org/AlphaHydrae/gitbook-plugin-variables)
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
