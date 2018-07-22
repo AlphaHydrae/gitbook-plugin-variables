@@ -7,6 +7,9 @@
 
 
 - [Requirements](#requirements)
+- [Usage](#usage)
+- [Configuration](#configuration)
+  - [`files`](#files)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
