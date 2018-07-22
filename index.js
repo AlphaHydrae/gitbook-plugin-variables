@@ -1,6 +1,6 @@
 const { readFile } = require('fs-extra');
 const yaml = require('js-yaml');
-const { defaults, each, isArray, isPlainObject, mapValues, reduce, values } = require('lodash');
+const { defaults, each, isArray, isPlainObject, mapValues, reduce } = require('lodash');
 
 module.exports = {
   hooks: { init },
@@ -19,8 +19,6 @@ async function init() {
   each(pluginConfig.files, (value, key) => {
     variablesToAdd[key] = loadFileList(value, this);
   });
-
-  await values(variablesToAdd);
 
   for (const key in variablesToAdd) {
     variablesToAdd[key] = await variablesToAdd[key];
