@@ -43,5 +43,28 @@
     "doctoc": "^1.3.1",
     "gitbook-tester": "^1.4.3",
     "mocha": "^5.2.0"
+  },
+  "gitbook": {
+    "properties": {
+      "files": {
+        "type": "object",
+        "description": "Variables to load from files",
+        "additionalProperties": {
+          "anyOf": [
+            {
+              "type": "string",
+              "description": "Path to a JavaScript, JSON or YAML file to load into the variable"
+            },
+            {
+              "type": "array",
+              "description": "List of paths to JavaScript, JSON or YAML files to load and merge into the variable",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        }
+      }
+    }
   }
 }
