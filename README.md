@@ -4,7 +4,7 @@
 
 [![npm version](https://badge.fury.io/js/gitbook-plugin-variables.svg)](https://badge.fury.io/js/gitbook-plugin-variables)
 [![build status](https://travis-ci.org/AlphaHydrae/gitbook-plugin-variables.svg?branch=master)](https://travis-ci.org/AlphaHydrae/gitbook-plugin-variables)
-[![license](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE.txt)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.txt)
 
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
