@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2017",
+
+    "removeComments": true,
+    "preserveConstEnums": true,
+
+    "rootDir": ".",
+    "outDir": "lib",
+    "sourceMap": true,
+    "declaration": true,
+
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": true
+  },
+  "include": [
+    "spec/**/*.ts",
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "lib",
+    "node_modules"
+  ]
+}
