@@ -11,6 +11,7 @@
     "build:webpack": "webpack-cli --config webpack.js",
     "dev": "concurrently \"npm run build:watch\" \"npm run lint:watch\"",
     "doctoc": "doctoc --github --notitle README.md",
+    "gitbook:install": "gitbook install",
     "lint": "tslint -c tslint.json -p tsconfig.json -t stylish \"src/**/*.ts\"",
     "lint:watch": "onchange \"src/**/*.ts\" -- npm run lint",
     "prepublishOnly": "npm run lint && cross-env WEBPACK_MODE=production npm run build",
