@@ -5,20 +5,43 @@ const parallel = require('mocha.parallel');
 const path = require('path');
 
 const root = path.resolve(path.join(__dirname, '..'));
-const timeout = process.env.GITBOOK_TIMEOUT || 10000;
+const timeout = process.env.GITBOOK_TIMEOUT ? parseInt(process.env.GITBOOK_TIMEOUT, 10) : 10000;
 
-parallel('gitbook-plugin-variables', function() {
+const actualDescribe = process.env.PARALLEL ? parallel : describe;
+
+const standardTests = [
+  { file: 'data.js', contents: 'exports.foo = "bar";' },
+  { file: 'data.json', contents: '{"foo":"bar"}' },
+  { file: 'data.yml', contents: 'foo: bar' },
+  { file: 'async.js', contents: 'module.exports = Promise.resolve({ foo: "bar" });' },
+  { file: 'function.js', contents: 'module.exports = () => ({ foo: "bar" })' },
+  { file: 'async-function.js', contents: 'module.exports = () => Promise.resolve({ foo: "bar" })' }
+];
+
+actualDescribe('gitbook-plugin-variables', function() {
   this.timeout(timeout);
 
-  [
-    { file: 'data.js', contents: 'exports.foo = "bar";' },
-    { file: 'data.json', contents: '{"foo":"bar"}' },
-    { file: 'data.yml', contents: 'foo: bar' }
-  ].forEach(config => {
-    it(`should load a variable from a ${path.extname(config.file)} file`, async () => {
+  standardTests.forEach(config => {
+    it(`should merge variables from ${config.file}`, async () => {
 
       const result = await build(builder => builder
-        .withContent('Foo{{ book.data.foo }}')
+        .withContent('FOO {{ book.foo }} BAZ')
+        .withFile(config.file, config.contents)
+        .withBookJson({
+          pluginsConfig: {
+            variables: {
+              files: config.file
+            }
+          }
+        }));
+
+      expect(getText(result)).to.equal('FOO bar BAZ');
+    });
+
+    it(`should load a variable from ${config.file}`, async () => {
+
+      const result = await build(builder => builder
+        .withContent('FOO {{ book.data.foo }} BAZ')
         .withFile(config.file, config.contents)
         .withBookJson({
           pluginsConfig: {
@@ -30,8 +53,26 @@ parallel('gitbook-plugin-variables', function() {
           }
         }));
 
-      expect(getText(result)).to.equal('Foobar');
+      expect(getText(result)).to.equal('FOO bar BAZ');
     });
+  });
+
+  it('should interpret file globs', async () => {
+
+    const result = await build(builder => builder
+      .withContent('START {{ book.foo }} {{ book.bar }} {{ book.baz }} END')
+      .withFile('data.yml', 'foo: bar')
+      .withFile('data.json', '{"bar":"baz"}')
+      .withFile('data.js', 'exports.foo = "qux";\nexports.baz = "corge";')
+      .withBookJson({
+        pluginsConfig: {
+          variables: {
+            files: 'data.*'
+          }
+        }
+      }));
+
+    expect(getText(result)).to.equal('START bar baz corge END');
   });
 
   it('should merge arrays', async () => {

@@ -15,7 +15,8 @@
     "lint:watch": "onchange \"src/**/*.ts\" -- npm run lint",
     "prepublishOnly": "npm run lint && cross-env WEBPACK_MODE=production npm run build",
     "test": "mocha \"spec/**/*.spec.js\"",
-    "test:debug": "cross-env DEBUG=true npm test"
+    "test:debug": "cross-env DEBUG=true npm test",
+    "test:parallel": "cross-env GITBOOK_TIMEOUT=25000 PARALLEL=true npm test"
   },
   "repository": {
     "type": "git",
