@@ -1,6 +1,6 @@
 {
   "name": "gitbook-plugin-variables",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Load variables from files and use them in your GitBook templates",
   "main": "index.js",
   "types": "index.d.ts",
