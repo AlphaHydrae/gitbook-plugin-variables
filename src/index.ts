@@ -1,4 +1,4 @@
-// const glob = require('fast-glob');
+import * as glob from 'fast-glob';
 import { readFile } from 'fs-extra';
 import { safeLoad as parseYaml } from 'js-yaml';
 import { defaults, each, isArray, isPlainObject, reduce } from 'lodash';
@@ -49,19 +49,20 @@ async function init(this: GitBookHook) {
   this.config.set('variables', { ...this.config.get('variables'), ...variablesToAdd });
 }
 
-async function loadFile(file: string) {
-  if (file.match(/\.ya?ml$/)) {
-    return parseYaml(await readFile(file, 'utf8'));
-  } else if (file.match(/\.js(?:on)?$/)) {
-    return nativeRequire(file);
+async function loadFile(absolutePath: string) {
+  if (absolutePath.match(/\.ya?ml$/)) {
+    return parseYaml(await readFile(absolutePath, 'utf8'));
+  } else if (absolutePath.match(/\.js(?:on)?$/)) {
+    const contents = nativeRequire(absolutePath);
+    return typeof contents === 'function' ? contents() : contents;
   } else {
-    throw new Error(`Only .js, .json and .yml files are supported by the variables plugin: "${file}" is not a supported format`);
+    throw new Error(`Only .js, .json and .yml files are supported by the variables plugin: "${absolutePath}" is not a supported format`);
   }
 }
 
 async function loadFileList(fileOrList: string | string[], contentRoot: string) {
 
-  const files = toArray(fileOrList);
+  const files = await glob<string>(toArray(fileOrList), { cwd: contentRoot });
   const contents = await Promise.all(files.map(file => loadFile(resolvePath(contentRoot, file))));
 
   return reduce(contents, (memo, value) => {
