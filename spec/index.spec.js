@@ -1,12 +1,13 @@
 const { expect } = require('chai');
 const cheerio = require('cheerio');
 const tester = require('gitbook-tester');
+const parallel = require('mocha.parallel');
 const path = require('path');
 
 const root = path.resolve(path.join(__dirname, '..'));
 const timeout = process.env.GITBOOK_TIMEOUT || 10000;
 
-describe('gitbook-plugin-variables', function() {
+parallel('gitbook-plugin-variables', function() {
   this.timeout(timeout);
 
   [
