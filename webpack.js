@@ -1,5 +1,6 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
+const webpack = require('webpack');
 
 module.exports = {
   devtool: 'source-map',
@@ -17,14 +18,18 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    new webpack.WatchIgnorePlugin([ /\.js$/, /\.d\.ts$/ ])
+  ],
   resolve: {
     extensions: [ '.js', '.ts' ]
   },
-  target: 'node',
   output: {
-    filename: path.join('lib', 'index.js'),
-    sourceMapFilename: path.join('lib', 'index.map.js'),
-    libraryTarget: 'commonjs2',
+    filename: 'index.js',
+    sourceMapFilename: 'index.map.js',
+    library: 'gitbookPluginVariables',
+    libraryTarget: 'umd',
     path: __dirname,
-  }
+  },
+  target: 'node'
 };

@@ -2,13 +2,12 @@
 import { readFile } from 'fs-extra';
 import { safeLoad as parseYaml } from 'js-yaml';
 import { defaults, each, isArray, isPlainObject, reduce } from 'lodash';
+import * as nativeRequire from 'native-require';
 import { resolve as resolvePath } from 'path';
 
-export default {
-  hooks: { init },
-  blocks: {},
-  filters: {}
-};
+export const blocks = {};
+export const filters = {};
+export const hooks = { init };
 
 interface GitBookHook {
   config: GitBookConfig;
@@ -31,7 +30,6 @@ interface GitBookPluginsConfig {
 }
 
 async function init(this: GitBookHook) {
-  console.log('@@@ init');
 
   const contentRoot = this.resolve('.');
   const bookConfig = this.config.values;
@@ -55,17 +53,16 @@ async function loadFile(file: string) {
   if (file.match(/\.ya?ml$/)) {
     return parseYaml(await readFile(file, 'utf8'));
   } else if (file.match(/\.js(?:on)?$/)) {
-    return require(file);
+    return nativeRequire(file);
   } else {
     throw new Error(`Only .js, .json and .yml files are supported by the variables plugin: "${file}" is not a supported format`);
   }
 }
 
-
 async function loadFileList(fileOrList: string | string[], contentRoot: string) {
 
-  const files = toArray(fileOrList).map(file => resolvePath(contentRoot, file));
-  const contents = await Promise.all(files.map(loadFile));
+  const files = toArray(fileOrList);
+  const contents = await Promise.all(files.map(file => loadFile(resolvePath(contentRoot, file))));
 
   return reduce(contents, (memo, value) => {
     if (isArray(memo) && isArray(value)) {

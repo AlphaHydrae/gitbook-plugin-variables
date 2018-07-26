@@ -10,11 +10,11 @@ describe('gitbook-plugin-variables', function() {
   this.timeout(timeout);
 
   [
-    { file: 'data.js', contents: 'exports.foo = "bar";' }/*,
+    { file: 'data.js', contents: 'exports.foo = "bar";' },
     { file: 'data.json', contents: '{"foo":"bar"}' },
-    { file: 'data.yml', contents: 'foo: bar' }*/
+    { file: 'data.yml', contents: 'foo: bar' }
   ].forEach(config => {
-    it.only(`should load a variable from a ${path.extname(config.file)} file`, async () => {
+    it(`should load a variable from a ${path.extname(config.file)} file`, async () => {
 
       const result = await build(builder => builder
         .withContent('Foo{{ book.data.foo }}')

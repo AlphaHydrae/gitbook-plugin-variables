@@ -6,8 +6,8 @@
     "removeComments": true,
     "preserveConstEnums": true,
 
-    "rootDir": ".",
-    "outDir": "lib",
+    "rootDir": "src",
+    "outDir": ".",
     "sourceMap": true,
     "declaration": true,
 
@@ -22,11 +22,7 @@
     "noUnusedLocals": true
   },
   "include": [
-    "spec/**/*.ts",
-    "src/**/*.ts"
+    "**/*.ts"
   ],
-  "exclude": [
-    "lib",
-    "node_modules"
-  ]
+  "exclude": []
 }

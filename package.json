@@ -2,11 +2,11 @@
   "name": "gitbook-plugin-variables",
   "version": "1.0.1",
   "description": "Load variables from files and use them in your GitBook templates",
-  "main": "lib/index.js",
-  "types": "lib/src/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "npm run build:clean && npm run build:webpack",
-    "build:clean": "rimraf lib",
+    "build:clean": "rimraf index.*",
     "build:watch": "webpack-cli --config webpack.js --watch",
     "build:webpack": "webpack-cli --config webpack.js",
     "dev": "concurrently \"npm run build:watch\" \"npm run lint:watch\"",
@@ -38,7 +38,9 @@
     "node": ">= 8.0.0"
   },
   "files": [
-    "lib",
+    "index.d.ts",
+    "index.js",
+    "index.map.js",
     "LICENSE.txt",
     "README.md"
   ],
@@ -46,7 +48,8 @@
     "fast-glob": "^2.2.2",
     "fs-extra": "^7.0.0",
     "js-yaml": "^3.12.0",
-    "lodash": "^4.17.10"
+    "lodash": "^4.17.10",
+    "native-require": "^1.1.4"
   },
   "devDependencies": {
     "@types/fs-extra": "^5.0.4",
